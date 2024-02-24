@@ -1,0 +1,88 @@
+<!-- activity_main.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+        </WebView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- Backward button -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_backward_arrow"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:padding="16dp"
+        android:contentDescription="Navigate backward"
+        android:onClick="goBack"
+        tools:ignore="HardcodedText" />
+
+    <!-- Forward button -->
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_forward_arrow"
+        android:background="@android:color/transparent"
+        android:layout_alignBottom="@id/btnBack"
+        android:layout_toEndOf="@id/btnBack"
+        android:layout_marginStart="16dp"
+        android:padding="16dp"
+        android:onClick="goForward"
+        android:contentDescription="Navigate forward"
+        tools:ignore="HardcodedText" />
+
+
+
+    <!-- Settings button -->
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        android:textColor="#000000"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="openSettings" />
+
+    <!-- New Tab button -->
+    <Button
+        android:id="@+id/tabButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_1"
+        android:textColor="#000000"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@id/settingsButton"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        tools:ignore="RelativeOverlap"
+        android:onClick="openNewTab"/>
+
+
+
+</RelativeLayout>
+
+
+
