@@ -2,6 +2,7 @@ package com.orge.findanything;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -112,15 +113,21 @@ public class TabManager {
 
         // Example usage of goBack()
         boolean wentBack = goBack();
+        if (wentBack) {
+            Log.d("TabManager", "Went back successfully");
+        }
 
         // Example usage of goForward()
         boolean wentForward = goForward();
+        if (wentForward) {
+            Log.d("TabManager", "Went forward successfully");
+        }
 
         // Example usage of refresh()
         refresh();
 
         // Example usage of loadUrl(String)
-        String exampleUrl = "https://www.example.com";
+        String exampleUrl = "https://www.google.com";
         loadUrl(exampleUrl);
 
         // Example usage of removeTab(WebView)

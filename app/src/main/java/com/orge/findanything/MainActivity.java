@@ -2,6 +2,8 @@ package com.orge.findanything;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -9,6 +11,7 @@ import android.webkit.WebViewClient;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -33,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize TabManager
         tabManager = new TabManager(this, webView, swipeRefreshLayout);
+
+        // Call example method from TabManager
+        tabManager.exampleMethodUsage();
+
+        // Set up onBackPressedCallback
+        setOnBackPressedCallback();
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -71,14 +80,12 @@ public class MainActivity extends AppCompatActivity {
         popupMenu.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
             if (id == R.id.menu_bookmarks) {
-                // Implement bookmarks functionality
+                // Replace toast with logic to open bookmarks activity
                 showToast("Bookmarks clicked");
-                // Add your bookmarks logic here
                 return true;
             } else if (id == R.id.menu_history) {
-                // Implement history functionality
+                // Replace toast with logic to open history activity
                 showToast("History clicked");
-                // Add your history logic here
                 return true;
             } else if (id == R.id.menu_exit) {
                 // Implement exit functionality
@@ -98,30 +105,47 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    // onBackPressed method without using onBackPressedDispatcher
+    private void setOnBackPressedCallback() {
+        // Create an onBackPressedCallback
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (!tabManager.goBack()) {
+                    // If no tab to go back, execute default onBackPressed behavior
+                    MainActivity.super.onBackPressed();
+                }
+            }
+        };
+
+        // Add the onBackPressedCallback to the activity's OnBackPressedDispatcher
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+    }
+
     @Override
-    public void onBackPressed() {
-        if (!tabManager.goBack()) {
-            super.onBackPressed();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_bookmarks) {
+            // Replace toast with logic to open bookmarks activity
+            showToast("Bookmarks clicked");
+            return true;
+        } else if (id == R.id.menu_history) {
+            // Replace toast with logic to open history activity
+            showToast("History clicked");
+            return true;
+        } else if (id == R.id.menu_exit) {
+            // Implement exit functionality
+            finish();
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
-
-
-    // Example usage of methods from TabManager
-    private void exampleMethodUsage() {
-        // Example usage of getCurrentTab()
-        WebView currentTab = tabManager.getCurrentTab();
-
-        // Example usage of refresh()
-        tabManager.refresh();
-
-        // Example usage of loadUrl(String)
-        String url = "https://www.google.com";
-        tabManager.loadUrl(url);
-
-        // Example usage of removeTab(WebView)
-        tabManager.removeTab(currentTab);
-    }
-
-
 }
